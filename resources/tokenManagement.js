@@ -3,12 +3,26 @@ let tokenManagement = {}
 tokenManagement.getOAuthTokens = function(user_identifier) {
   return new Promise(function(resolve, reject) {
     var result = {}
-    result.accesstoken = '1000.68ff054445d75728a1ce22d73e4fd4df.0ce4537388ce25ad621a49d373a9bd88'
-    result.expirytime = 1563393239134
-    result.refreshtoken = '1000.6146bace10ebab1f0b7c0d78cc530d96.aef18e94db6df94e844d375c0411758e'
+    result.accesstoken =
+      '1000.f532a5f0e7cd79389bbe7ed945094775.5f7c3eef27169412f6884a34f06d5143'
+    result.expirytime = 3600000
+    result.refreshtoken =
+      '1000.350fbfa8bbc26acf681ef0a399f22500.394abec896b085f1192461f4e15914ec'
     var result_array = []
     result_array.push(result)
     resolve(result_array)
+  })
+}
+
+tokenManagement.updateOAuthTokens = function(token_obj) {
+  return new Promise((resolve, reject) => {
+    resolve()
+  })
+}
+
+tokenManagement.saveOAuthTokens = function(token_obj) {
+  return new Promise((resolve, reject) => {
+    resolve()
   })
 }
 
