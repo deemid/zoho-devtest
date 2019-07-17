@@ -24,44 +24,6 @@ app.use(express.static(path.join(__dirname, 'public')))
 
 app.use('/', indexRouter)
 
-// Zoho
-// const ZCRMRestClient = require('zcrmsdk')
-// ZCRMRestClient.initialize().then(function() {
-//   //do whatever required after initialize
-//   // console.log('INITIALIZED')
-
-//   // const input ={};
-//   // input.module = "Leads";
-
-//   // const params = {};
-//   // params.page = 0;
-//   // params.per_page = 5;
-//   // input.params = params;
-  
-//   // ZCRMRestClient.API.MODULES.get(input).then(function(response){
-
-//   //     let data = response.body;
-//   //     data = JSON.parse(data);
-//   //     data = data.data;
-      
-//   //     // console.log(JSON.stringify(data, null, 2))
-
-//   // })
-
-//   ZCRMRestClient.generateAuthTokens('zcrm_default_user','1000.9ef1cc75240a74be45a31a85bd49d346.0949ef470e477ddd1a58465d84e9672b').then(function(auth_response){
-
-//       console.log("access token :"+auth_response.access_token);
-//       console.log("refresh token :"+auth_response.refresh_token);
-//       console.log("expires in :"+auth_response.expires_in);
-
-//   }).catch(err => {
-//     console.log('err')
-//   })
-
-// }).catch(err => {
-//   console.log(err)
-// })
-
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404))

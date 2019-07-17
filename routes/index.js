@@ -7,6 +7,10 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' })
 })
 
+router.use('/callback', async (req, res, next) => {
+  res.json(req.query)
+})
+
 router.get('/api/leads', async (req, res, next) => {
   try {
     await ZCRMRestClient.initialize()
