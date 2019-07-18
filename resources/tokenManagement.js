@@ -4,32 +4,33 @@ let User = require('../models/user')
 
 let tokenManagement = {}
 
-tokenManagement.getOAuthTokens = function(user_identifier) {
+tokenManagement.getOAuthTokens = async (user_identifier) => {
   
-  return new Promise(function(resolve, reject) {
+  return new Promise(async (resolve, reject) => {
     
-    User.findOne({
-      useridentifier: 'zcrm_default_user'
-    }).then(user => {
-      refreshToken(user.refreshtoken).then(res => {
-        user = Object.assign(user, {
-          accesstoken: res.data.access_token
-        })
-
-        user.save().then(() => {
-          resolve([
-            {
-              accesstoken: user.accesstoken,
-              refreshtoken: user.refreshtoken,
-              expirytime: user.expirytime
-            }
-          ])
-        })
-      }).catch(err => {
-        reject(err)
+    try {
+      let user = await User.findOne({
+        useridentifier: 'zcrm_default_user'
       })
-      
-    })
+
+      let res = await refreshToken(user.refreshtoken)
+
+      user = Object.assign(user, {
+        accesstoken: res.data.access_token
+      })
+
+      await user.save()
+      resolve([
+        {
+          accesstoken: user.accesstoken,
+          refreshtoken: user.refreshtoken,
+          expirytime: user.expirytime
+        }
+      ])
+
+    } catch (err) {
+      reject (err)
+    }
 
   })
 }
