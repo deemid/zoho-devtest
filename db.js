@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const createDefaultUser = require('./createDefaultUser')
 
 const options = {
   autoIndex: false, // Don't build indexes
@@ -15,6 +16,7 @@ const connectWithRetry = () => {
     .connect(process.env.MONGODB_URI, options)
     .then(() => {
       console.log(`Connected to MongoDB URI: ${process.env.MONGODB_URI}`)
+      createDefaultUser()
     })
     .catch(err => {
       console.log('MongoDB connection unsuccessful, reconnecting after 5 seconds...')
