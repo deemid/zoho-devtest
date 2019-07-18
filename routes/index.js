@@ -1,7 +1,7 @@
-const ZCRMRestClient = require('zcrmsdk')
-
 const express = require('express')
 const router = express.Router()
+
+const Lead = require('../models/lead')
 
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' })
@@ -13,22 +13,36 @@ router.use('/callback', async (req, res, next) => {
 
 router.get('/api/leads', async (req, res, next) => {
   try {
-    await ZCRMRestClient.initialize()
+    let leads = await Lead.find()
 
-    const input = {}
-    input.module = 'Leads'
+    res.status(200).json(leads)
 
-    const params = {}
-    params.page = req.query.page || 0
-    params.per_page = req.query.per_page || 5
-    input.params = params
+  } catch (err) {
+    next(err)
+  }
+})
 
-    let response = await ZCRMRestClient.API.MODULES.get(input)
-    let data = response.body
-    data = JSON.parse(data)
-    data = data.data
+router.get('/leads', async (req, res, next) => {
+  try {
+    let leads = await Lead.find()
 
-    res.json(data)
+    res.render('leads', {
+      leads
+    })
+
+  } catch (err) {
+    next(err)
+  }
+})
+
+router.get('/leads/:id', async (req, res, next) => {
+  try {
+    let lead = await Lead.findById(req.params.id)
+
+    res.render('lead', {
+      lead,
+      leadJSON: JSON.stringify(lead, null, 2)
+    })
 
   } catch (err) {
     next(err)

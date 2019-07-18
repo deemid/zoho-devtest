@@ -23,7 +23,7 @@ tokenManagement.getOAuthTokens = async (user_identifier) => {
       console.log(user)
       resolve([
         {
-          accesstoken: user.accesstoken,
+          accesstoken: res.data.access_token,
           refreshtoken: user.refreshtoken,
           expirytime: user.expirytime
         }
