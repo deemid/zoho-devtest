@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
 const createDefaultUser = require('./createDefaultUser')
+const { syncLeadsFromZoho } = require('./lib')
 
 const options = {
   autoIndex: false, // Don't build indexes
@@ -14,9 +15,11 @@ const options = {
 const connectWithRetry = () => {
   mongoose
     .connect(process.env.MONGODB_URI, options)
-    .then(() => {
+    .then(async () => {
       console.log(`Connected to MongoDB URI: ${process.env.MONGODB_URI}`)
-      createDefaultUser()
+      await createDefaultUser()
+      console.log('Syncing Leads from ZOHO')
+      syncLeadsFromZoho()
     })
     .catch(err => {
       console.log('MongoDB connection unsuccessful, reconnecting after 5 seconds...')

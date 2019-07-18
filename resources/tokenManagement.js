@@ -15,11 +15,12 @@ tokenManagement.getOAuthTokens = async (user_identifier) => {
 
       let res = await refreshToken(user.refreshtoken)
 
-      user = Object.assign(user, {
-        accesstoken: res.data.access_token
-      })
+      // user = Object.assign(user, {
+      //   accesstoken: res.data.access_token
+      // })
 
-      await user.save()
+      // await user.save()
+      console.log(user)
       resolve([
         {
           accesstoken: user.accesstoken,
